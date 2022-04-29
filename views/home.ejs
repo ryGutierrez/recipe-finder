@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width">
+	  <title>Home</title>
+		<%- include("partials/styles.ejs") %>
+	</head>
+	<%- include("partials/nav.ejs") %>
+	
+	<body>
+		<h1>Home</h1>
+		<% if(authenticated) { %>
+			<a href="/recipesAdmin">Go to recipes</a>
+		<% } else { %>
+			<a href="/recipes">Go to recipes</a>
+		<% } %>
+	</body>
+
+	<script href="/js/script.js"></script>
+</html>

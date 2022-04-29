@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width">
+	  <title>Recipes</title>
+		<%- include("partials/styles.ejs") %>
+	</head>
+	
+	<%- include("partials/nav.ejs") %>
+		
+	<body>
+		<div id="main">
+			<h1>Recipes</h1>
+			<% for(recipe of recipes) { %>
+				<div class="recipeBlock">
+					<!-- Clicking on a recipe will take the user to its own page -->
+					<ul>
+						<li><%= recipe.recipeName %></li> 
+						<li><%= recipe.category %></li>
+						<li>By <%= recipe.username %></li>
+						<li><%= recipe.likes %> likes</li>
+					</ul>
+		
+					<img src="<%= recipe.img %>">
+				</div>
+		<% } %>
+	</div>
+		
+	</body>
+
+	<script src="/js/script.js"></script>
+</html>

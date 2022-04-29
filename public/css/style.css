@@ -1,0 +1,83 @@
+#main {
+	background-color: white;
+	width: 75%;
+	margin: 0 auto;
+	position: relative;
+}
+
+#background {
+	background-color: #fdede2ff;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -100;
+}
+
+body {
+	width: 75%;
+	position: relative;	
+}
+
+
+nav {
+	overflow: hidden;
+	background-color: #fc7061ff;
+	padding: 20px;
+}
+
+nav a{
+	float: left;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+nav a:hover {
+	background-color: #383838;
+	color: white;
+}
+
+nav a:focus {
+	background-color: #fff1f0ff;
+	color: black;
+}
+
+#logout{
+	float: right;
+ 	
+/*	top: 0;
+	right: 0;
+	margin-right: 5px;
+	margin-left: 5px; */
+}
+
+.recipeBlock {
+	display: flex;
+}
+
+.recipeBlock ul {
+	list-style: none;
+}
+
+.recipeBlock img {
+	width: 150px;
+	margin-left: 5px;
+}
+
+.bi-plus-square, .bi-x-square, .bi-pencil-square {
+	color: black;
+	font-size: 30px;
+}
+
+.bi-plus-square {
+	position: fixed;
+	right: -50px;
+	margin-right: 10px;
+	
+}
+
+#topDiv {
+	display: flex;
+}
