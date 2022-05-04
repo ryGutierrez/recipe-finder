@@ -12,21 +12,68 @@
 		<h1> Recipe Finder</h1>
 		<br>
 		<h3>Please login.</h3>
-		<form method="post" action="/login">
-			<label for="username">Username: </label>
-			<input type="text" name="username" autofocus><br>
-			<label for="password">Password: </label>
-			<input type="password" name="password"><br>
-			<button>Login</button><br>
 
-			<% if(typeof(error) != "undefined") { %>
-				<span id="error"><%= error %></span>
-			<% } %>
-		</form>
+    <div class="loginFlex">
 
-		<form action="/home">
-			<button> Continue as Guest </button>
-		</form>
-	  
+      <div class="loginSections">
+        <form method="post" action="/login">
+          <div class="userLogin">
+            <label for="username">Username: </label>
+    			  <input type="text" name="username" autofocus><br>
+          </div>
+    			<div class="userLogin">
+            <label for="password">Password: </label>
+    			  <input type="password" name="password"><br>
+          </div>
+    			<div class="userLogin">
+            <button>Login</button><br>
+          </div>
+          <div class="userLogin adjustRight">
+            <% if(typeof(error) != "undefined") { %>
+    				<span id="error"><%= error %></span>
+    			  <% } %>
+          </div>
+    		</form>
+      </div>
+  		
+      <div class="loginSections">
+    		<form method="post" action="/guestLogin">
+    			<button> Continue as Guest </button>
+    		</form>
+      </div>
+
+      <div class="loginSections">
+  		  <button id="createAccount">Create Account</button>
+      </div>
+          
+    </div>
+
+  <!-- Create Account Modal -->
+    <div>
+      <div class="modal fade" id="create-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="/createAccount">
+              <div class="create-body">
+                Username: <input type="text" name="username">
+                Password: <input type="password" name="password"
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Create Account</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+		
+	
 	</body>
+
+	<script src="/js/script.js"></script>
 </html>
