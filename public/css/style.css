@@ -81,3 +81,18 @@ nav a:focus {
 #topDiv {
 	display: flex;
 }
+
+.loginFlex {
+  display: flex;
+  margin: 20px;
+}
+
+.loginSections {
+  padding: 15px;
+  margin: 7.5px;
+  border: thin solid black;
+}
+
+.userLogin {
+  padding: 5px;
+}
