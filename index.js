@@ -140,14 +140,35 @@ app.get('/api/usernames', async (req, res) => {
 	res.send(data);
 }); 
 
+//Search Recipie
+app.get('/searchRecipe', async (req, res) => {
+	let keyword = req.query.recipies;
+	let sql = `SELECT recipeId, recipeName,ingredients, recipe, likes, img, category 
+                              FROM r_recipes 
+                              WHERE recipeName LIKE ?`;
 
-
-
-
-
-
-
-
+  let params = [`%${keyword}%`];
+	let data = await executeSQL(sql, params);
+	res.render('recipesAdmin', { 'recipes': data });        
+});
+//Search by Category
+app.get('/searchCategory', async (req, res)=>{
+	let category = req.query.category;
+	let sql = `SELECT recipeId, recipeName, ingredients, recipe, likes, img, category
+															  FROM r_recipes r
+															  WHERE category LIKE ?`;
+	let params = [`${category}`];
+	let data = await executeSQL(sql, params);
+	res.render('recipesAdmin', {'recipes': data});
+  });
+  //Reset button 
+	app.get('/reset', async (req, res) =>{
+	console.log("resetting...");
+	if(req.session.isAdmin == 1)
+		res.redirect('/recipesAdmin');
+	else
+		res.redirect('/recipes')
+});  
 
 
 app.get("/dbTest", async function(req, res){
