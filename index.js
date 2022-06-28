@@ -170,6 +170,66 @@ app.get('/searchCategory', async (req, res)=>{
 		res.redirect('/recipes')
 });  
 
+//UpdateRecipie
+app.get('/updateRecipeLike', isAuthenticated, async (req, res) => {
+	let isLiked = await executeSQL(`SELECT COUNT(1) as count FROM r_likes WHERE recipeId = ? AND userId = ?`,
+																	[req.query.recipeId, req.session.sessionUserId]);
+	if(isLiked[0].count == 0) {
+		console.log("adding new like...");
+		await executeSQL(`INSERT INTO r_likes
+											(recipeId, userId)
+											VALUES
+											(?, ?)`,
+											[req.query.recipeId, req.session.sessionUserId]);
+	} else {
+		console.log("removing existing like...");
+		await executeSQL(`DELETE FROM r_likes WHERE recipeId = ? AND userId = ?`,
+											[req.query.recipeId, req.session.sessionUserId])
+	}
+	res.redirect('/recipes');
+});
+//UpdateReviewLike
+app.get('/updateReviewLike', isAuthenticated, async (req, res) => {
+	let isLiked = await executeSQL(`SELECT COUNT(1) as count FROM r_likes WHERE reviewId = ? AND userId = ?`,
+																	[req.query.reviewId, req.session.sessionUserId]);
+	if(isLiked[0].count == 0) {
+		await executeSQL(`INSERT INTO r_likes
+											(reviewId, userId)
+											VALUES
+											(?, ?)`,
+											[req.query.reviewId, req.session.sessionUserId]);
+	} else {
+		await executeSQL(`DELETE FROM r_likes WHERE reviewId = ? AND userId = ?`,
+											[req.query.reviewId, req.session.sessionUserId])
+	}
+	res.redirect('/viewRecipe/'+req.query.recipeId);
+});
+//viewRecipie
+app.get('/viewRecipe/:id', isAuthenticated, async (req, res) => {
+	let recipeInfo = await executeSQL(`SELECT r.*, username AS author
+															FROM r_recipes r
+															INNER JOIN r_users u ON r.userId = u.userId
+															WHERE recipeId = ?`,
+															[req.params.id]);
+	let reviews = await executeSQL(`SELECT w.*, username as author
+																	FROM r_reviews w
+																	INNER JOIN r_users u ON w.userId = u.userId
+																	WHERE recipeId = ?`, 
+																 	[req.params.id]);
+	let likes = await executeSQL(`SELECT reviewId, userId FROM r_likes`);
+	res.render('viewRecipe', {"recipeInfo":recipeInfo[0], "reviews":reviews, "sessionUserId":req.session.sessionUserId, "likes":likes})
+});
+//editAccount
+app.get('/editAccount', isAuthenticated, async (req, res) => {
+	await executeSQL(`UPDATE r_users
+										SET
+											username = ?,
+											biography = ?
+										WHERE userId = ?`,
+										[req.query.username, req.query.biography, req.session.sessionUserId]);
+	res.redirect('/viewAccount');
+});
+
 
 app.get("/dbTest", async function(req, res){
 	let sql = "SELECT CURDATE()";
