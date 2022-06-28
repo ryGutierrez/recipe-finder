@@ -140,12 +140,20 @@ app.get('/api/usernames', async (req, res) => {
 	res.send(data);
 }); 
 
+//Search Recipie
+app.get('/searchRecipe', async (req, res) => {
+	let keyword = req.query.recipies;
+	let sql = `SELECT recipeId, recipeName,ingredients, recipe, likes, img, category 
+                              FROM r_recipes 
+                              WHERE recipeName LIKE ?`;
+
+  let params = [`%${keyword}%`];
+	let data = await executeSQL(sql, params);
+	res.render('recipesAdmin', { 'recipes': data });        
+});
 
 
-
-
-
-
+//Search by Category
 
 
 
